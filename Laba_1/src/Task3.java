@@ -46,12 +46,13 @@ public class Task3 {
         Random random = new Random();
         Scanner scanner = new Scanner(System.in);
 
-        int Number = random.nextInt(10);
         int attempt = 0;
         int guess;
+        int Number;
 
         do {
             System.out.println("Введи число от 0 до 9");
+            int Number = random.nextInt(10);
             guess = scanner.nextInt();
             attempt++;
 
@@ -65,3 +66,4 @@ public class Task3 {
         System.out.println("Вы отгадали число за " + attempt + " попытки");
     }
 }
+
