@@ -53,7 +53,14 @@ public class Task3 {
         do {
             System.out.println("Введи число от 0 до 9");
             int Number = random.nextInt(10);
+            if (scanner.hasNextInt()) {
             guess = scanner.nextInt();
+        }
+        else {
+            System.out.println("Это не целое число");
+            scanner.next();
+            return;
+        }
             attempt++;
 
             if (guess == Number)
@@ -66,4 +73,5 @@ public class Task3 {
         System.out.println("Вы отгадали число за " + attempt + " попытки");
     }
 }
+
 
