@@ -4,495 +4,465 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Task1 tasks1 = new Task1();
+        Valid valid = new Valid();
+        Task task = new Task();
 
         System.out.println("Привет, это 1 лаба по Java");
-        System.out.println("Какое задание выполнить (1-20)?");
-        int NumTask = -1;
-        if (scanner.hasNextInt()) {
-            NumTask = scanner.nextInt();
-        }
-        else {
-            System.out.println("Это не целое число");
-            scanner.next();
-            return;
-        }
+        String number;
+        while (true) {
+            System.out.println("Введи номер задания(1-20):");
+            System.out.println("21 - Выход");
+            number = scanner.nextLine();
 
-        switch (NumTask) {
-            case 1:
-                System.out.println("1 Задание");
-                System.out.println("Введи число: ");
-                int task1 = -1;
-                if (scanner.hasNextInt()) {
-                    task1 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-                System.out.println("Результат: " + tasks1.sumLastNums(task1));
-                System.exit(0);
-            case 2:
-                System.out.println("2 Задание");
-                System.out.println("Введи число: ");
-                int task2 = -1;
-                if (scanner.hasNextInt()) {
-                    task2 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-                System.out.println("Результат: " + tasks1.isPositive(task2));
-                System.exit(0);
-            case 3:
-                System.out.println("3 Задание");
-                System.out.println("Введи символ: ");
+            if (!valid.isNumber(number)) {
+                System.out.println("Ошибка");
+                continue;
+            }
 
-                scanner.nextLine();
+            int TaskNum = Integer.parseInt(number);
+            if (TaskNum < 1 || TaskNum > 21) {
+                System.out.println("Вводимый номер должен быть от 1 до 21");
+                continue;
+            }
 
-                char task3;
-                while (true) {
-                    String input = scanner.nextLine();
-                    if (input.length() == 1) {
-                        task3 = input.charAt(0);
+            switch (TaskNum) {
+                case 1:
+                    System.out.println("1 Задание - Сумма двух последних цифр");
+                    System.out.println("Введи число: ");
+                    String task1 = scanner.nextLine();
+                    if (valid.isInteger(task1)) {
+                        int num1 = Integer.parseInt(task1);
+                        if (Math.abs(num1) < 10) {
+                            System.out.println("Число должно содержать минимум 2 цифры");
+                        } else {
+                            int result = task.sumLastNums(num1);
+                            System.out.println("Результат: " + result);
+                        }
+                    } else {
+                        System.out.println("Это не целое число");
+                    }
+                    break;
+
+                case 2:
+                    System.out.println("2 Задание - Проверка положительного числа");
+                    System.out.println("Введи число: ");
+                    String task2 = scanner.nextLine();
+                    if (valid.isInteger(task2)) {
+                        int num2 = Integer.parseInt(task2);
+                        boolean isPos = task.isPositive(num2);
+                        System.out.println("Результат: " + isPos);
+                    } else {
+                        System.out.println("Это не целое число");
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("3 Задание - Проверка заглавной буквы");
+                    System.out.println("Введи символ: ");
+                    String input3 = scanner.nextLine();
+                    if (input3.length() == 1) {
+                        char ch = input3.charAt(0);
+                        boolean isUpper = task.isUpperCase(ch);
+                        System.out.println("Результат: " + isUpper);
+                    } else {
+                        System.out.println("Введите один символ");
+                    }
+                    break;
+
+                case 4:
+                    System.out.println("4 Задание - Проверка делимости");
+                    System.out.println("Введи первое число: ");
+                    String a4 = scanner.nextLine();
+                    if (!valid.isInteger(a4)) {
+                        System.out.println("Ошибка");
                         break;
                     }
-                    System.out.println("Ошибка!");
-                }
 
-                System.out.println("Результат: " + tasks1.isUpperCase(task3));
-                System.exit(0);
-            case 4:
-                System.out.println("4 Задание");
-                System.out.println("Введи 1 число: ");
-                int Atask4 = -1;
-                if (scanner.hasNextInt()) {
-                    Atask4 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-
-                System.out.println("Введи 2 число: ");
-                int Btask4 = -1;
-                if (scanner.hasNextInt()) {
-                    Btask4 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-                System.out.println("Результат: " + tasks1.isDivisor(Atask4, Btask4));
-                System.exit(0);
-            case 5:
-                System.out.println("5 Задание");
-                System.out.println("Введи 1 число");
-                int Atask5 = -1;
-                if (scanner.hasNextInt()) {
-                    Atask5 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-
-                System.out.println("Введи 2 число");
-                int Btask5 = -1;
-                if (scanner.hasNextInt()) {
-                    Btask5 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-                System.out.println(tasks1.lastNumSum(Atask5, Btask5));
-                System.exit(0);
-            case 6:
-                System.out.println("6 Задание");
-                System.out.println("Введи 1 число");
-                int Atask6 = -1;
-                if (scanner.hasNextInt()) {
-                    Atask6 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-
-                System.out.println("Введи 2 число");
-                int Btask6 = -1;
-                if (scanner.hasNextInt()) {
-                    Btask6 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-                System.out.println("Результат: " + tasks1.safeDiv(Atask6, Btask6));
-                System.exit(0);
-            case 7:
-                System.out.println("7 Задание");
-                System.out.println("Введи 1 число");
-                int Atask7 = -1;
-                if (scanner.hasNextInt()) {
-                    Atask7 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-
-                System.out.println("Введи 2 число");
-                int Btask7 = -1;
-                if (scanner.hasNextInt()) {
-                    Btask7 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-                System.out.println("Результат: " + tasks1.makeDecision(Atask7, Btask7));
-                System.exit(0);
-            case 8:
-                System.out.println("8 Задание");
-                System.out.println("Введи 1 число");
-                int Atask8 = -1;
-                if (scanner.hasNextInt()) {
-                    Atask8 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-
-                System.out.println("Введи 2 число");
-                int Btask8 = -1;
-                if (scanner.hasNextInt()) {
-                    Btask8 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-
-                System.out.println("Введи 3 число");
-                int Ctask8 = -1;
-                if (scanner.hasNextInt()) {
-                    Ctask8 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-
-                System.out.println("Результат: " + tasks1.sum3(Atask8, Btask8, Ctask8));
-                System.exit(0);
-            case 9:
-                System.out.println("9 Задание");
-                System.out.println("Введи 1 число");
-                int task9 = -1;
-                if (scanner.hasNextInt()) {
-                    task9 = scanner.nextInt();
-                    if (task9 < 1){
-                        System.out.println("Отрицательное число");
-                        System.exit(0);
+                    System.out.println("Введи второе число: ");
+                    String b4 = scanner.nextLine();
+                    if (!valid.isInteger(b4)) {
+                        System.out.println("Ошибка");
+                        break;
                     }
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-                System.out.println("Результат: " + tasks1.age(task9));
-                System.exit(0);
-            case 10:
-                System.out.println("10 Задание");
-                System.out.println("Введи день недели");
-                String task10 = scanner.next();
-                tasks1.printDays(task10);
-                System.exit(0);
-            case 11:
-                System.out.println("11 Задание");
-                System.out.println("Введи 1 число");
-                int task11 = -1;
-                if (scanner.hasNextInt()) {
-                    task11 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-                System.out.println("Результат: " + tasks1.reverseListNums(task11));
-                System.exit(0);
-            case 12:
-                System.out.println("12 Задание");
-                System.out.println("Введи 1 число");
-                int Atask12 = -1;
-                if (scanner.hasNextInt()) {
-                    Atask12 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
 
-                System.out.println("Введи 2 число");
-                int Btask12 = -1;
-                if (scanner.hasNextInt()) {
-                    Btask12 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-                System.out.println("Результат: " + tasks1.pow(Atask12, Btask12));
-                System.exit(0);
-            case 13:
-                System.out.println("13 Задание");
-                System.out.println("Введи 1 число");
-                int task13 = -1;
-                if (scanner.hasNextInt()) {
-                    task13 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-                System.out.println("Результат: " + tasks1.equalNum(task13));
-                System.exit(0);
-            case 14:
-                System.out.println("14 Задание");
-                System.out.println("Введи 1 число");
-                int task14 = -1;
-                if (scanner.hasNextInt()) {
-                    task14 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
+                    int numA4 = Integer.parseInt(a4);
+                    int numB4 = Integer.parseInt(b4);
 
-                tasks1.leftTriangle(task14);
-                System.exit(0);
-            case 15:
-                System.out.println("15 Задание");
-                tasks1.guessGame();
-                System.exit(0);
-            case 16:
-                System.out.println("16 Задание");
-                System.out.println("Какой размер массива?");
-                int size16 = -1;
-                if (scanner.hasNextInt()) {
-                    size16 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-
-                int[] arr16 = new int[size16];
-                for(int i = 0; i < size16; i++)
-                    if (scanner.hasNextInt()) {
-                        arr16[i] = scanner.nextInt();
+                    if (numA4 == 0 && numB4 == 0) {
+                        System.out.println("Ошибка: оба числа не могут быть нулями");
+                        break;
                     }
-                    else {
+
+                    if (numA4 == 0) {
+                        System.out.println("Ошибка: первое число не может быть нулем");
+                        break;
+                    }
+
+                    if (numB4 == 0) {
+                        System.out.println("Ошибка: второе число не может быть нулем");
+                        break;
+                    }
+
+                    boolean isDiv = task.isDivisor(numA4, numB4);
+                    System.out.println("Результат: " + isDiv);
+                    break;
+
+                case 5:
+                    System.out.println("5 Задание - Сумма последних цифр последовательности");
+                    System.out.println("Введи первое число: ");
+                    String a5 = scanner.nextLine();
+                    if (!valid.isInteger(a5)) {
+                        System.out.println("Ошибка");
+                        break;
+                    }
+                    System.out.println("Введи второе число: ");
+                    String b5 = scanner.nextLine();
+                    if (!valid.isInteger(b5)) {
+                        System.out.println("Ошибка");
+                        break;
+                    }
+
+                    int numA5 = Integer.parseInt(a5);
+                    int numB5 = Integer.parseInt(b5);
+                    task.lastNumSum(numA5, numB5);
+                    break;
+
+                case 6:
+                    System.out.println("6 Задание - Безопасное деление");
+                    System.out.println("Введи первое число: ");
+                    String x6 = scanner.nextLine();
+                    if (!valid.isInteger(x6)) {
+                        System.out.println("Ошибка");
+                        break;
+                    }
+                    System.out.println("Введи второе число: ");
+                    String y6 = scanner.nextLine();
+                    if (!valid.isInteger(y6)) {
+                        System.out.println("Ошибка");
+                        break;
+                    }
+                    double divResult = task.safeDiv(Integer.parseInt(x6), Integer.parseInt(y6));
+                    System.out.println("Результат: " + divResult);
+                    break;
+
+                case 7:
+                    System.out.println("7 Задание - Сравнение чисел");
+                    System.out.println("Введи первое число: ");
+                    String x7 = scanner.nextLine();
+                    if (!valid.isInteger(x7)) {
+                        System.out.println("Ошибка");
+                        break;
+                    }
+                    System.out.println("Введи второе число: ");
+                    String y7 = scanner.nextLine();
+                    if (!valid.isInteger(y7)) {
+                        System.out.println("Ошибка");
+                        break;
+                    }
+                    String decision = task.makeDecision(Integer.parseInt(x7), Integer.parseInt(y7));
+                    System.out.println("Результат: " + decision);
+                    break;
+
+                case 8:
+                    System.out.println("8 Задание - Проверка суммы трех чисел");
+                    System.out.println("Введи первое число: ");
+                    String x8 = scanner.nextLine();
+                    if (!valid.isInteger(x8)) {
+                        System.out.println("Ошибка");
+                        break;
+                    }
+                    System.out.println("Введи второе число: ");
+                    String y8 = scanner.nextLine();
+                    if (!valid.isInteger(y8)) {
+                        System.out.println("Ошибка");
+                        break;
+                    }
+                    System.out.println("Введи третье число: ");
+                    String z8 = scanner.nextLine();
+                    if (!valid.isInteger(z8)) {
+                        System.out.println("Ошибка");
+                        break;
+                    }
+                    boolean sum3Result = task.sum3(Integer.parseInt(x8), Integer.parseInt(y8), Integer.parseInt(z8));
+                    System.out.println("Результат: " + sum3Result);
+                    break;
+
+                case 9:
+                    System.out.println("9 Задание - Форма возраста");
+                    System.out.println("Введи возраст: ");
+                    String ageStr = scanner.nextLine();
+                    if (valid.isInteger(ageStr)) {
+                        int age = Integer.parseInt(ageStr);
+                        if (age < 0) {
+                            System.out.println("Возраст не может быть отрицательным");
+                        } else {
+                            String ageResult = task.age(age);
+                            System.out.println("Результат: " + ageResult);
+                        }
+                    } else {
                         System.out.println("Это не целое число");
-                        scanner.next();
-                        return;
                     }
-                System.out.println("Введи 1 число");
-                int task16 = -1;
-                if (scanner.hasNextInt()) {
-                    task16 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-                System.out.println("Результат: " + tasks1.findLast(arr16, task16));
-                System.exit(0);
-            case 17:
-                System.out.println("17 Задание");
-                System.out.println("Какой размер массива?");
-                int size17 = -1;
-                if (scanner.hasNextInt()) {
-                    size17 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
+                    break;
 
-                int[] arr17 = new int[size17];
-                System.out.println("Введите числа массива");
-                for(int i = 0; i < size17; i++) {
-                    if (scanner.hasNextInt()) {
-                        arr17[i] = scanner.nextInt();
-                    }
-                    else {
+                case 10:
+                    System.out.println("10 Задание - Дни недели");
+                    System.out.println("Введи день недели: ");
+                    String day = scanner.nextLine();
+                    task.printDays(day);
+                    break;
+
+                case 11:
+                    System.out.println("11 Задание - Обратная последовательность");
+                    System.out.println("Введи число: ");
+                    String num11 = scanner.nextLine();
+                    if (valid.isInteger(num11)) {
+                        String reverseSeq = task.reverseListNums(Integer.parseInt(num11));
+                        System.out.println("Результат: " + reverseSeq);
+                    } else {
                         System.out.println("Это не целое число");
-                        scanner.next();
-                        return;
                     }
-                }
+                    break;
 
-                System.out.println("Введи 1 число");
-                int Atask17 = -1;
-                if (scanner.hasNextInt()) {
-                    Atask17 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-
-                System.out.println("Введи 2 число");
-                int Btask17 = -1;
-                if (scanner.hasNextInt()) {
-                    Btask17 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-
-                System.out.println("Результат: " + Arrays.toString(tasks1.add(arr17, Atask17, Btask17)));
-                System.exit(0);
-            case 18:
-                System.out.println("18 Задание");
-                System.out.println("Какой размер массива?");
-                int size18 = -1;
-                if (scanner.hasNextInt()) {
-                    size18 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-
-                int[] arr18 = new int[size18];
-                System.out.println("Введи числа в массив");
-                for(int i = 0; i < size18; i++){
-                    if (scanner.hasNextInt()) {
-                        arr18[i] = scanner.nextInt();
+                case 12:
+                    System.out.println("12 Задание - Возведение в степень");
+                    System.out.println("Введи число: ");
+                    String baseStr = scanner.nextLine();
+                    if (!valid.isInteger(baseStr)) {
+                        System.out.println("Ошибка");
+                        break;
                     }
-                    else {
+                    System.out.println("Введи степень: ");
+                    String exponentStr = scanner.nextLine();
+                    if (!valid.isInteger(exponentStr)) {
+                        System.out.println("Ошибка");
+                        break;
+                    }
+                    int powerResult = task.pow(Integer.parseInt(baseStr), Integer.parseInt(exponentStr));
+                    System.out.println("Результат: " + powerResult);
+                    break;
+
+                case 13:
+                    System.out.println("13 Задание - Одинаковые цифры");
+                    System.out.println("Введи число: ");
+                    String num13 = scanner.nextLine();
+                    if (valid.isInteger(num13)) {
+                        boolean equalResult = task.equalNum(Integer.parseInt(num13));
+                        System.out.println("Результат: " + equalResult);
+                    } else {
                         System.out.println("Это не целое число");
-                        scanner.next();
-                        return;
                     }
-                }
-                tasks1.reverse(arr18);
-                System.exit(0);
-            case 19:
-                System.out.println("19 Задание");
-                System.out.println("Какой размер массива?");
-                int Asize19 = -1;
-                if (scanner.hasNextInt()) {
-                    Asize19 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-                int[] Aarr19 = new int[Asize19];
-                System.out.println("Введи числа в массив");
-                for(int i = 0; i < Asize19; i++){
-                    if (scanner.hasNextInt()) {
-                        Aarr19[i] = scanner.nextInt();
-                    }
-                    else {
+                    break;
+
+                case 14:
+                    System.out.println("14 Задание - Левый треугольник");
+                    System.out.println("Введи размер: ");
+                    String sizeStr = scanner.nextLine();
+                    if (valid.isInteger(sizeStr)) {
+                        int size = Integer.parseInt(sizeStr);
+                        if (size <= 0) {
+                            System.out.println("Размер должен быть положительным");
+                        } else {
+                            task.leftTriangle(size);
+                        }
+                    } else {
                         System.out.println("Это не целое число");
-                        scanner.next();
-                        return;
                     }
-                }
+                    break;
 
-                System.out.println("Какой размер массива?");
-                int Bsize19 = -1;
-                if (scanner.hasNextInt()) {
-                    Bsize19 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-                int[] Barr19 = new int[Bsize19];
-                System.out.println("Введи числа в массив");
-                for(int i = 0; i < Bsize19; i++){
-                    if (scanner.hasNextInt()) {
-                        Barr19[i] = scanner.nextInt();
+                case 15:
+                    System.out.println("15 Задание - Угадай число");
+                    task.guessGame();
+                    break;
+
+                case 16:
+                    System.out.println("16 Задание - Поиск последнего вхождения");
+                    System.out.println("Введите количество элементов массива: ");
+                    String count16Str = scanner.nextLine();
+                    if (!valid.isInteger(count16Str) || Integer.parseInt(count16Str) < 0) {
+                        System.out.println("Количество элементов должно быть неотрицательным целым числом");
+                        break;
                     }
-                    else {
-                        System.out.println("Это не целое число");
-                        scanner.next();
-                        return;
+                    int count16 = Integer.parseInt(count16Str);
+
+                    if (count16 == 0) {
+                        System.out.println("Массив пуст");
+                        break;
                     }
-                }
 
-                tasks1.concat(Aarr19, Barr19);
-                System.exit(0);
-
-
-            case 20:
-                System.out.println("20 Задание");
-                System.out.println("Какой размер массива?");
-                int size20 = -1;
-                if (scanner.hasNextInt()) {
-                    size20 = scanner.nextInt();
-                }
-                else {
-                    System.out.println("Это не целое число");
-                    scanner.next();
-                    return;
-                }
-
-                int[] arr20 = new int[size20];
-                System.out.println("Введи числа в массив");
-                for(int i = 0; i < size20; i++){
-                    if (scanner.hasNextInt()) {
-                        arr20[i] = scanner.nextInt();
+                    int[] arr16 = new int[count16];
+                    for (int i = 0; i < count16; i++) {
+                        System.out.println("Введите элемент " + (i + 1) + ": ");
+                        String element = scanner.nextLine();
+                        if (!valid.isInteger(element)) {
+                            System.out.println("Элемент не целое число");
+                            i--; // Повторяем ввод этого элемента
+                            continue;
+                        }
+                        arr16[i] = Integer.parseInt(element);
                     }
-                    else {
-                        System.out.println("Это не целое число");
-                        scanner.next();
-                        return;
-                    }
-                }
 
-                tasks1.deleteNegative(arr20);
-                System.exit(0);
-            default:
-                System.out.println("Введено что-то не то");
-                break;
+                    System.out.println("Введите число для поиска: ");
+                    String search16Str = scanner.nextLine();
+                    if (!valid.isInteger(search16Str)) {
+                        System.out.println("Число для поиска не целое");
+                        break;
+                    }
+                    int foundIndex = task.findLast(arr16, Integer.parseInt(search16Str));
+                    System.out.println("Результат: " + foundIndex);
+                    break;
+
+                case 17:
+                    System.out.println("17 Задание - Добавление элемента в массив");
+                    System.out.println("Введите количество элементов массива: ");
+                    String count17Str = scanner.nextLine();
+                    if (!valid.isInteger(count17Str) || Integer.parseInt(count17Str) < 0) {
+                        System.out.println("Количество элементов должно быть неотрицательным целым числом");
+                        break;
+                    }
+                    int count17 = Integer.parseInt(count17Str);
+
+                    int[] arr17 = new int[count17];
+                    for (int i = 0; i < count17; i++) {
+                        System.out.println("Введите элемент " + (i + 1) + ": ");
+                        String element = scanner.nextLine();
+                        if (!valid.isInteger(element)) {
+                            System.out.println("Элемент не целое число");
+                            i--;
+                            continue;
+                        }
+                        arr17[i] = Integer.parseInt(element);
+                    }
+
+                    System.out.println("Введите число для добавления: ");
+                    String addNumStr = scanner.nextLine();
+                    if (!valid.isInteger(addNumStr)) {
+                        System.out.println("Число для добавления не целое");
+                        break;
+                    }
+                    System.out.println("Введите позицию: ");
+                    String posStr = scanner.nextLine();
+                    if (!valid.isInteger(posStr)) {
+                        System.out.println("Позиция не целая");
+                        break;
+                    }
+                    int pos = Integer.parseInt(posStr);
+                    if (pos < 0 || pos > arr17.length) {
+                        System.out.println("Позиция должна быть от 0 до " + arr17.length);
+                        break;
+                    }
+                    int[] newArr = task.add(arr17, Integer.parseInt(addNumStr), pos);
+                    System.out.println("Новый массив: " + Arrays.toString(newArr));
+                    break;
+
+                case 18:
+                    System.out.println("18 Задание - Разворот массива");
+                    System.out.println("Введите количество элементов массива: ");
+                    String count18Str = scanner.nextLine();
+                    if (!valid.isInteger(count18Str) || Integer.parseInt(count18Str) < 0) {
+                        System.out.println("Количество элементов должно быть неотрицательным целым числом");
+                        break;
+                    }
+                    int count18 = Integer.parseInt(count18Str);
+
+                    if (count18 == 0) {
+                        System.out.println("Массив пуст");
+                        break;
+                    }
+
+                    int[] arr18 = new int[count18];
+                    for (int i = 0; i < count18; i++) {
+                        System.out.println("Введите элемент " + (i + 1) + ": ");
+                        String element = scanner.nextLine();
+                        if (!valid.isInteger(element)) {
+                            System.out.println("Элемент не целое число");
+                            i--; // Повторяем ввод этого элемента
+                            continue;
+                        }
+                        arr18[i] = Integer.parseInt(element);
+                    }
+                    task.reverse(arr18);
+                    break;
+
+                case 19:
+                    System.out.println("19 Задание - Объединение массивов");
+
+                    System.out.println("Введите количество элементов первого массива: ");
+                    String count19_1Str = scanner.nextLine();
+                    if (!valid.isInteger(count19_1Str) || Integer.parseInt(count19_1Str) < 0) {
+                        System.out.println("Количество элементов должно быть неотрицательным целым числом");
+                        break;
+                    }
+                    int count19_1 = Integer.parseInt(count19_1Str);
+
+                    int[] arr19_1 = new int[count19_1];
+                    for (int i = 0; i < count19_1; i++) {
+                        System.out.println("Введите элемент " + (i + 1) + " первого массива: ");
+                        String element = scanner.nextLine();
+                        if (!valid.isInteger(element)) {
+                            System.out.println("Элемент не целое число");
+                            i--; // Повторяем ввод этого элемента
+                            continue;
+                        }
+                        arr19_1[i] = Integer.parseInt(element);
+                    }
+
+                    // Второй массив
+                    System.out.println("Введите количество элементов второго массива: ");
+                    String count19_2Str = scanner.nextLine();
+                    if (!valid.isInteger(count19_2Str) || Integer.parseInt(count19_2Str) < 0) {
+                        System.out.println("Количество элементов должно быть неотрицательным целым числом");
+                        break;
+                    }
+                    int count19_2 = Integer.parseInt(count19_2Str);
+
+                    int[] arr19_2 = new int[count19_2];
+                    for (int i = 0; i < count19_2; i++) {
+                        System.out.println("Введите элемент " + (i + 1) + " второго массива: ");
+                        String element = scanner.nextLine();
+                        if (!valid.isInteger(element)) {
+                            System.out.println("Элемент не целое число");
+                            i--; // Повторяем ввод этого элемента
+                            continue;
+                        }
+                        arr19_2[i] = Integer.parseInt(element);
+                    }
+
+                    task.concat(arr19_1, arr19_2);
+                    break;
+
+                case 20:
+                    System.out.println("20 Задание - Удаление отрицательных чисел");
+                    System.out.println("Введите количество элементов массива: ");
+                    String count20Str = scanner.nextLine();
+                    if (!valid.isInteger(count20Str) || Integer.parseInt(count20Str) < 0) {
+                        System.out.println("Количество элементов должно быть неотрицательным целым числом");
+                        break;
+                    }
+                    int count20 = Integer.parseInt(count20Str);
+
+                    if (count20 == 0) {
+                        System.out.println("Массив пуст");
+                        break;
+                    }
+
+                    int[] arr20 = new int[count20];
+                    for (int i = 0; i < count20; i++) {
+                        System.out.println("Введите элемент " + (i + 1) + ": ");
+                        String element = scanner.nextLine();
+                        if (!valid.isInteger(element)) {
+                            System.out.println("Элемент не целое число");
+                            i--; // Повторяем ввод этого элемента
+                            continue;
+                        }
+                        arr20[i] = Integer.parseInt(element);
+                    }
+                    task.deleteNegative(arr20);
+                    break;
+
+                case 21:
+                    System.out.println("Выход");
+                    System.exit(0);
+            }
         }
     }
 }
